@@ -51,5 +51,6 @@ function reverseNodesInKGroups(linkedList: ListNode<number>, k: number) {
         }
     }
     console.log(newSortedLinkedList);
+    return newSortedLinkedList;
 }
 export = reverseNodesInKGroups;

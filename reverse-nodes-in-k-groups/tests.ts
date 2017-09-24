@@ -23,6 +23,7 @@ function toLinkedList(list: number[]): ListNode<number> {
     for (let i = 0; i < list.length; i++) {
         current.value = list[i];
         current.next = { value: list[i + 1], next: null };
+        current = current.next;
     }
     return linkedList;
 }
