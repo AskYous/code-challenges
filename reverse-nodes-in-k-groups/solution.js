@@ -8,13 +8,12 @@ var ListNode = /** @class */ (function () {
     return ListNode;
 }());
 function reverseNodesInKGroups(linkedList, k) {
-    var newSortedLinkedList = JSON.parse(JSON.stringify(linkedList));
-    var current = newSortedLinkedList;
+    var current = linkedList;
     // the algorithm
     for (var i = 0; current.next; i++) {
         var reachedEndOfSubset = (i != 0) && (i % k == 0);
         if (reachedEndOfSubset) {
-            console.log(toArray(newSortedLinkedList));
+            console.log(toArray(linkedList));
             reverse(i - k, i);
         }
         current = current.next;
@@ -25,7 +24,7 @@ function reverseNodesInKGroups(linkedList, k) {
         var currentNode2;
         var lastNodeInSubList;
         // get node before the sublist
-        currentNode2 = newSortedLinkedList;
+        currentNode2 = linkedList;
         for (var i = 0; i < from; i++) {
             currentNode2 = currentNode2.next;
         }
@@ -44,7 +43,7 @@ function reverseNodesInKGroups(linkedList, k) {
         // set the last node's next to the next node outside the sublist
         tempArray[tempArray.length - 1].next = lastNodeInSubList;
         if (initialFrom == 0) {
-            newSortedLinkedList = tempArray[0];
+            linkedList = tempArray[0];
         }
         else {
             var previousNode = getNthNode(initialFrom - 1);
@@ -61,14 +60,14 @@ function reverseNodesInKGroups(linkedList, k) {
         return array;
     }
     function getNthNode(n) {
-        var current = newSortedLinkedList;
+        var current = linkedList;
         for (var i = 0; i < n; i++) {
             current = current.next;
         }
         return current;
     }
-    console.log(toArray(newSortedLinkedList));
-    return newSortedLinkedList;
+    console.log(toArray(linkedList));
+    return linkedList;
 }
 module.exports = reverseNodesInKGroups;
 //# sourceMappingURL=solution.js.map

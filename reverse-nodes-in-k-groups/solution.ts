@@ -10,14 +10,13 @@ class ListNode<T> {
 }
 
 function reverseNodesInKGroups(linkedList: ListNode<number>, k: number) {
-    let newSortedLinkedList: ListNode<number> = JSON.parse(JSON.stringify(linkedList));
-    let current: ListNode<number> = newSortedLinkedList;
+    let current: ListNode<number> = linkedList;
 
     // the algorithm
     for (let i = 0; current.next; i++) {
         let reachedEndOfSubset = (i != 0) && (i % k == 0);
         if (reachedEndOfSubset) {
-            console.log(toArray(newSortedLinkedList));
+            console.log(toArray(linkedList));
             reverse(i - k, i);
         }
         current = current.next;
@@ -29,7 +28,7 @@ function reverseNodesInKGroups(linkedList: ListNode<number>, k: number) {
         let lastNodeInSubList: ListNode<number>;
 
         // get node before the sublist
-        currentNode2 = newSortedLinkedList;
+        currentNode2 = linkedList;
         for (let i = 0; i < from; i++) {
             currentNode2 = currentNode2.next;
         }
@@ -53,7 +52,7 @@ function reverseNodesInKGroups(linkedList: ListNode<number>, k: number) {
         tempArray[tempArray.length - 1].next = lastNodeInSubList;
 
         if (initialFrom == 0) {
-            newSortedLinkedList = tempArray[0];
+            linkedList = tempArray[0];
         } else {
             let previousNode = getNthNode(initialFrom - 1);
             previousNode.next = tempArray[0];
@@ -69,13 +68,13 @@ function reverseNodesInKGroups(linkedList: ListNode<number>, k: number) {
         return array;
     }
     function getNthNode(n: number): ListNode<number> {
-        let current = newSortedLinkedList;
+        let current = linkedList;
         for (let i = 0; i < n; i++) {
             current = current.next;
         }
         return current;
     }
-    console.log(toArray(newSortedLinkedList));
-    return newSortedLinkedList;
+    console.log(toArray(linkedList));
+    return linkedList;
 }
 export = reverseNodesInKGroups;
