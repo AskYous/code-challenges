@@ -50,7 +50,16 @@ function reverseNodesInKGroups(linkedList: ListNode<number>, k: number) {
             tempArray[i].next = tempArray[i + 1];
         }
     }
-    console.log(newSortedLinkedList);
+    function toArray(ll: ListNode<number>) {
+        const array = [];
+        let current = ll;
+        while (current.next) {
+            array.push(current.value);
+            current = current.next;
+        }
+        return array;
+    }
+    console.log(toArray(newSortedLinkedList));
     return newSortedLinkedList;
 }
 export = reverseNodesInKGroups;

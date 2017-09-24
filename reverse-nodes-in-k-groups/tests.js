@@ -15,7 +15,9 @@ var testCases = [
 ];
 testCases.forEach(function (testCase) {
     var linkedList = toLinkedList(testCase.list);
-    console.log(testCase, reverseNodesInKGroups(linkedList, testCase.k));
+    console.log(testCase.list, testCase.k);
+    reverseNodesInKGroups(linkedList, testCase.k);
+    console.log('----');
 });
 function toLinkedList(list) {
     var linkedList = { value: null, next: null };
@@ -23,6 +25,7 @@ function toLinkedList(list) {
     for (var i = 0; i < list.length; i++) {
         current.value = list[i];
         current.next = { value: list[i + 1], next: null };
+        current = current.next;
     }
     return linkedList;
 }

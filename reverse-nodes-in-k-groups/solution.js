@@ -41,7 +41,17 @@ function reverseNodesInKGroups(linkedList, k) {
             tempArray[i].next = tempArray[i + 1];
         }
     }
-    console.log(newSortedLinkedList);
+    function toArray(ll) {
+        var array = [];
+        var current = ll;
+        while (current.next) {
+            array.push(current.value);
+            current = current.next;
+        }
+        return array;
+    }
+    console.log(toArray(newSortedLinkedList));
+    return newSortedLinkedList;
 }
 module.exports = reverseNodesInKGroups;
 //# sourceMappingURL=solution.js.map

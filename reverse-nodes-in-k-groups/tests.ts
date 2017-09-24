@@ -15,7 +15,9 @@ const testCases = [
 ];
 testCases.forEach(testCase => {
     const linkedList = toLinkedList(testCase.list);
-    console.log(testCase, reverseNodesInKGroups(linkedList, testCase.k))
+    console.log(testCase.list, testCase.k);
+    reverseNodesInKGroups(linkedList, testCase.k);
+    console.log('----');
 });
 function toLinkedList(list: number[]): ListNode<number> {
     const linkedList: ListNode<number> = { value: null, next: null };
