@@ -17,6 +17,7 @@ function reverseNodesInKGroups(linkedList: ListNode<number>, k: number) {
     for (let i = 0; current.next; i++) {
         let reachedEndOfSubset = (i != 0) && (i % k == 0);
         if (reachedEndOfSubset) {
+            console.log(toArray(newSortedLinkedList));
             reverse(i - k, i);
         }
         current = current.next;
@@ -29,7 +30,7 @@ function reverseNodesInKGroups(linkedList: ListNode<number>, k: number) {
 
         // get node before the sublist
         currentNode2 = newSortedLinkedList;
-        for (let i = 0; i < from - 1; i++) {
+        for (let i = 0; i < from; i++) {
             currentNode2 = currentNode2.next;
         }
 
@@ -54,7 +55,7 @@ function reverseNodesInKGroups(linkedList: ListNode<number>, k: number) {
         if (initialFrom == 0) {
             newSortedLinkedList = tempArray[0];
         } else {
-            let previousNode = getNthNode(initialFrom - 2);
+            let previousNode = getNthNode(initialFrom - 1);
             previousNode.next = tempArray[0];
         }
     }

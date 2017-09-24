@@ -14,6 +14,7 @@ function reverseNodesInKGroups(linkedList, k) {
     for (var i = 0; current.next; i++) {
         var reachedEndOfSubset = (i != 0) && (i % k == 0);
         if (reachedEndOfSubset) {
+            console.log(toArray(newSortedLinkedList));
             reverse(i - k, i);
         }
         current = current.next;
@@ -25,7 +26,7 @@ function reverseNodesInKGroups(linkedList, k) {
         var lastNodeInSubList;
         // get node before the sublist
         currentNode2 = newSortedLinkedList;
-        for (var i = 0; i < from - 1; i++) {
+        for (var i = 0; i < from; i++) {
             currentNode2 = currentNode2.next;
         }
         // push the rest of the sublist into the temp array
@@ -46,7 +47,7 @@ function reverseNodesInKGroups(linkedList, k) {
             newSortedLinkedList = tempArray[0];
         }
         else {
-            var previousNode = getNthNode(initialFrom - 2);
+            var previousNode = getNthNode(initialFrom - 1);
             previousNode.next = tempArray[0];
         }
     }
