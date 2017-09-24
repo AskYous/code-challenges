@@ -10,7 +10,6 @@ var ListNode = /** @class */ (function () {
 function reverseNodesInKGroups(linkedList, k) {
     var newSortedLinkedList = JSON.parse(JSON.stringify(linkedList));
     var current = newSortedLinkedList;
-    // [1][2][3][4][5]
     // the algorithm
     for (var i = 0; current.next; i++) {
         var reachedEndOfSubset = (i != 0) && (i % k == 0);
@@ -21,9 +20,11 @@ function reverseNodesInKGroups(linkedList, k) {
     }
     function reverse(from, to) {
         var tempArray = [];
+        var initialFrom = from;
         var currentNode2;
+        var lastNodeInSubList;
         // get node before the sublist
-        currentNode2 = linkedList;
+        currentNode2 = newSortedLinkedList;
         for (var i = 0; i < from - 1; i++) {
             currentNode2 = currentNode2.next;
         }
@@ -32,13 +33,21 @@ function reverseNodesInKGroups(linkedList, k) {
             tempArray.push(currentNode2);
             currentNode2 = currentNode2.next;
         }
-        // push the node that's after the sublist into the array
-        tempArray.push(currentNode2.next);
+        lastNodeInSubList = currentNode2;
         // reverse
         tempArray = tempArray.reverse();
         // set all the 'next' values of the nodes in the sublist
         for (var i = 0; i < tempArray.length - 1; i++) {
             tempArray[i].next = tempArray[i + 1];
+        }
+        // set the last node's next to the next node outside the sublist
+        tempArray[tempArray.length - 1].next = lastNodeInSubList;
+        if (initialFrom == 0) {
+            newSortedLinkedList = tempArray[0];
+        }
+        else {
+            var previousNode = getNthNode(initialFrom - 2);
+            previousNode.next = tempArray[0];
         }
     }
     function toArray(ll) {
@@ -49,6 +58,13 @@ function reverseNodesInKGroups(linkedList, k) {
             current = current.next;
         }
         return array;
+    }
+    function getNthNode(n) {
+        var current = newSortedLinkedList;
+        for (var i = 0; i < n; i++) {
+            current = current.next;
+        }
+        return current;
     }
     console.log(toArray(newSortedLinkedList));
     return newSortedLinkedList;
