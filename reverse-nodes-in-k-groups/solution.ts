@@ -12,11 +12,12 @@ class ListNode<T> {
 function reverseNodesInKGroups(linkedList: ListNode<number>, k: number) {
     let current: ListNode<number> = linkedList;
 
+    if (k == 1) { return toArray(linkedList) }
+
     // the algorithm
-    for (let i = 0; current.next; i++) {
-        let reachedEndOfSubset = (i != 0) && (i % k == 0);
+    for (let i = 1; current; i++) {
+        let reachedEndOfSubset = i % k == 0;
         if (reachedEndOfSubset) {
-            console.log(toArray(linkedList));
             reverse(i - k, i);
         }
         current = current.next;
@@ -25,6 +26,7 @@ function reverseNodesInKGroups(linkedList: ListNode<number>, k: number) {
         let tempArray: ListNode<number>[] = [];
         let initialFrom = from;
         let currentNode2: ListNode<number>;
+        let previousNode: ListNode<number>;
         let lastNodeInSubList: ListNode<number>;
 
         // get node before the sublist
@@ -34,11 +36,11 @@ function reverseNodesInKGroups(linkedList: ListNode<number>, k: number) {
         }
 
         // push the rest of the sublist into the temp array
-        for (; from < to; from++) {
+        for (; from < to && currentNode2; from++) {
             tempArray.push(currentNode2);
+            previousNode = currentNode2;
             currentNode2 = currentNode2.next;
         }
-        lastNodeInSubList = currentNode2;
 
         // reverse
         tempArray = tempArray.reverse();
@@ -54,11 +56,12 @@ function reverseNodesInKGroups(linkedList: ListNode<number>, k: number) {
         if (initialFrom == 0) {
             linkedList = tempArray[0];
         } else {
+            // toArray(linkedList);
             let previousNode = getNthNode(initialFrom - 1);
             previousNode.next = tempArray[0];
         }
     }
-    function toArray(ll: ListNode<number>) {
+    function toArray(ll: ListNode<number>): number[] {
         const array = [];
         let current = ll;
         while (current.next) {

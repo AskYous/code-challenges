@@ -9,11 +9,13 @@ var ListNode = /** @class */ (function () {
 }());
 function reverseNodesInKGroups(linkedList, k) {
     var current = linkedList;
+    if (k == 1) {
+        return toArray(linkedList);
+    }
     // the algorithm
-    for (var i = 0; current.next; i++) {
-        var reachedEndOfSubset = (i != 0) && (i % k == 0);
+    for (var i = 1; current; i++) {
+        var reachedEndOfSubset = i % k == 0;
         if (reachedEndOfSubset) {
-            console.log(toArray(linkedList));
             reverse(i - k, i);
         }
         current = current.next;
@@ -22,6 +24,7 @@ function reverseNodesInKGroups(linkedList, k) {
         var tempArray = [];
         var initialFrom = from;
         var currentNode2;
+        var previousNode;
         var lastNodeInSubList;
         // get node before the sublist
         currentNode2 = linkedList;
@@ -29,11 +32,11 @@ function reverseNodesInKGroups(linkedList, k) {
             currentNode2 = currentNode2.next;
         }
         // push the rest of the sublist into the temp array
-        for (; from < to; from++) {
+        for (; from < to && currentNode2; from++) {
             tempArray.push(currentNode2);
+            previousNode = currentNode2;
             currentNode2 = currentNode2.next;
         }
-        lastNodeInSubList = currentNode2;
         // reverse
         tempArray = tempArray.reverse();
         // set all the 'next' values of the nodes in the sublist
@@ -46,8 +49,9 @@ function reverseNodesInKGroups(linkedList, k) {
             linkedList = tempArray[0];
         }
         else {
-            var previousNode = getNthNode(initialFrom - 1);
-            previousNode.next = tempArray[0];
+            // toArray(linkedList);
+            var previousNode_1 = getNthNode(initialFrom - 1);
+            previousNode_1.next = tempArray[0];
         }
     }
     function toArray(ll) {
