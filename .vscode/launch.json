@@ -7,6 +7,6 @@
         "type": "node",
         "request": "launch",
         "name": "Launch Program",
-        "program": "${workspaceRoot}/reverse-nodes-in-k-groups/tests.js"
+        "program": "${workspaceRoot}/solution.js"
     }]
 }
