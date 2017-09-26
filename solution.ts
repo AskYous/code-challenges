@@ -14,12 +14,8 @@ function sudoku2(grid: string[][]): boolean {
             // get other col values
             for (let ci2 = 0; ci2 < grid.length; ci2++) {
                 if (grid[ri][ci2] !== empty && ci !== ci2) {
-                    otherRowValues.push(grid[ri][ci2]);
+                    if (grid[ri][ci2] == currentVal) { return false; }
                 }
-            }
-
-            for (let val in otherRowValues) {
-                if (val == currentVal) { return false; }
             }
         }
     }
