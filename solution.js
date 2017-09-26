@@ -10,15 +10,20 @@ function sudoku2(grid) {
             if (currentVal == empty) {
                 continue;
             }
-            // get other col values
+            // check other row values
             for (var ci2 = 0; ci2 < grid.length; ci2++) {
                 if (grid[ri][ci2] !== empty && ci !== ci2) {
-                    otherRowValues.push(grid[ri][ci2]);
+                    if (grid[ri][ci2] == currentVal) {
+                        return false;
+                    }
                 }
             }
-            for (var val in otherRowValues) {
-                if (val == currentVal) {
-                    return false;
+            // check other col values
+            for (var ri2 = 0; ri2 < grid.length; ri2++) {
+                if (grid[ri2][ci] !== empty && ri !== ri2) {
+                    if (grid[ri2][ci] == currentVal) {
+                        return false;
+                    }
                 }
             }
         }
@@ -27,13 +32,13 @@ function sudoku2(grid) {
 }
 console.log(sudoku2([
     ['.', '.', '.', '.', '2', '.', '.', '9', '.'],
-    ['.', '.', '.', '.', '2', '.', '.', '.', '.'],
-    ['7', '1', '.', '.', '7', '5', '.', '.', '.'],
+    ['.', '.', '.', '.', '6', '.', '.', '.', '.'],
+    ['7', '1', '.', '.', '2', '5', '.', '.', '.'],
     ['.', '7', '.', '.', '.', '.', '.', '.', '.'],
     ['.', '.', '.', '.', '8', '3', '.', '.', '.'],
     ['.', '.', '8', '.', '.', '7', '.', '6', '.'],
     ['.', '.', '.', '.', '.', '2', '.', '.', '.'],
-    ['.', '1', '.', '2', '.', '.', '.', '.', '.'],
+    ['.', '.', '.', '2', '.', '.', '.', '.', '.'],
     ['.', '2', '.', '.', '3', '.', '.', '.', '.']
 ]));
 //# sourceMappingURL=solution.js.map
