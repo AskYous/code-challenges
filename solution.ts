@@ -5,9 +5,7 @@ function sudoku2(grid: string[][]): boolean {
     for (let ri = 0; ri < grid.length; ri++) {
         for (let ci = 0; ci < grid.length; ci++) {
             const currentVal = grid[ri][ci];
-            const otherRowValues: string[] = [];
-            const otherColValues: string[] = [];
-            const otherSquareValues: string[] = [];
+            const pivot: { ri: number, ci: number } = { ri: 0, ci: 0 };
 
             if (currentVal == empty) { continue; }
 
@@ -28,19 +26,34 @@ function sudoku2(grid: string[][]): boolean {
                     }
                 }
             }
+
+            // check its square
+            // get starting position of its square
+            for (let i = ri; i > 0; i--) {
+                if (i % Math.sqrt(dimension) == 0) {
+                    pivot.ri = i;
+                    break;
+                };
+            }
+            for (let i = ci; i > 0; i--) {
+                if (i % Math.sqrt(dimension) == 0) {
+                    pivot.ci = i;
+                    break;
+                };
+            }
         }
     }
     return true;
 }
 
 console.log(sudoku2([
-    ['.', '.', '.', '.', '2', '.', '.', '9', '.'],
-    ['.', '.', '.', '.', '6', '.', '.', '.', '.'],
-    ['7', '1', '.', '.', '2', '5', '.', '.', '.'],
-    ['.', '7', '.', '.', '.', '.', '.', '.', '.'],
-    ['.', '.', '.', '.', '8', '3', '.', '.', '.'],
-    ['.', '.', '8', '.', '.', '7', '.', '6', '.'],
-    ['.', '.', '.', '.', '.', '2', '.', '.', '.'],
-    ['.', '.', '.', '2', '.', '.', '.', '.', '.'],
-    ['.', '2', '.', '.', '3', '.', '.', '.', '.']
+    ['.', '.', '.', '1', '4', '.', '.', '2', '.'],
+    ['.', '.', '6', '.', '.', '.', '.', '.', '.'],
+    ['.', '.', '.', '.', '.', '.', '.', '.', '.'],
+    ['.', '.', '1', '.', '.', '.', '.', '.', '.'],
+    ['.', '6', '7', '.', '.', '.', '.', '.', '9'],
+    ['.', '.', '.', '.', '.', '.', '8', '1', '.'],
+    ['.', '3', '.', '.', '.', '.', '.', '.', '6'],
+    ['.', '.', '.', '.', '.', '7', '.', '.', '.'],
+    ['.', '.', '.', '5', '.', '.', '.', '7', '.']
 ]));
