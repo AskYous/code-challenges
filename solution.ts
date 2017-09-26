@@ -1,5 +1,6 @@
 function sudoku2(grid: string[][]): boolean {
     const dimension: number = grid[0].length; // aka 9
+    const sqrt: number = Math.sqrt(dimension); // aka 9
     const empty = '.';
 
     for (let ri = 0; ri < grid.length; ri++) {
@@ -30,16 +31,28 @@ function sudoku2(grid: string[][]): boolean {
             // check its square
             // get starting position of its square
             for (let i = ri; i > 0; i--) {
-                if (i % Math.sqrt(dimension) == 0) {
+                if (i % sqrt == 0) {
                     pivot.ri = i;
                     break;
                 };
             }
             for (let i = ci; i > 0; i--) {
-                if (i % Math.sqrt(dimension) == 0) {
+                if (i % sqrt == 0) {
                     pivot.ci = i;
                     break;
                 };
+            }
+
+            if (pivot.ri !== ri && pivot.ci !== ci) {
+                if (grid[pivot.ri][pivot.ci] == currentVal) { return false; }
+            }
+
+            for (let ri2 = pivot.ri + 1; ri2 % sqrt !== 0; ri2++) {
+                for (let ci2 = pivot.ci + 1; ci2 % sqrt !== 0; ci2++) {
+                    if (grid[ri2][ci2] == currentVal) {
+                        return false;
+                    }
+                }
             }
         }
     }
@@ -48,7 +61,7 @@ function sudoku2(grid: string[][]): boolean {
 
 console.log(sudoku2([
     ['.', '.', '.', '1', '4', '.', '.', '2', '.'],
-    ['.', '.', '6', '.', '.', '.', '.', '.', '.'],
+    ['.', '.', '6', '.', '.', '1', '.', '.', '.'],
     ['.', '.', '.', '.', '.', '.', '.', '.', '.'],
     ['.', '.', '1', '.', '.', '.', '.', '.', '.'],
     ['.', '6', '7', '.', '.', '.', '.', '.', '9'],

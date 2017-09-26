@@ -1,5 +1,6 @@
 function sudoku2(grid) {
     var dimension = grid[0].length; // aka 9
+    var sqrt = Math.sqrt(dimension); // aka 9
     var empty = '.';
     for (var ri = 0; ri < grid.length; ri++) {
         for (var ci = 0; ci < grid.length; ci++) {
@@ -27,18 +28,30 @@ function sudoku2(grid) {
             // check its square
             // get starting position of its square
             for (var i = ri; i > 0; i--) {
-                if (i % Math.sqrt(dimension) == 0) {
+                if (i % sqrt == 0) {
                     pivot.ri = i;
                     break;
                 }
                 ;
             }
             for (var i = ci; i > 0; i--) {
-                if (i % Math.sqrt(dimension) == 0) {
+                if (i % sqrt == 0) {
                     pivot.ci = i;
                     break;
                 }
                 ;
+            }
+            if (pivot.ri !== ri && pivot.ci !== ci) {
+                if (grid[pivot.ri][pivot.ci] == currentVal) {
+                    return false;
+                }
+            }
+            for (var ri2 = pivot.ri + 1; ri2 % sqrt !== 0; ri2++) {
+                for (var ci2 = pivot.ci + 1; ci2 % sqrt !== 0; ci2++) {
+                    if (grid[ri2][ci2] == currentVal) {
+                        return false;
+                    }
+                }
             }
         }
     }
@@ -46,7 +59,7 @@ function sudoku2(grid) {
 }
 console.log(sudoku2([
     ['.', '.', '.', '1', '4', '.', '.', '2', '.'],
-    ['.', '.', '6', '.', '.', '.', '.', '.', '.'],
+    ['.', '.', '6', '.', '.', '1', '.', '.', '.'],
     ['.', '.', '.', '.', '.', '.', '.', '.', '.'],
     ['.', '.', '1', '.', '.', '.', '.', '.', '.'],
     ['.', '6', '7', '.', '.', '.', '.', '.', '9'],
