@@ -7,10 +7,12 @@ function isListPalindrome(l: ListNode<number>): boolean {
         current = current.next;
     }
 
-    for (let i = 0; i < array.length / 2; i++) {
-        if (array[i] !== array[(array.length - 1) - i]) {
-            return false;
+    current = l;
+    while (current) {
+        if (current.value !== array.pop()) {
+            return false
         }
+        current = current.next;
     }
 
     return true;

@@ -5,10 +5,12 @@ function isListPalindrome(l) {
         array.push(current.value);
         current = current.next;
     }
-    for (var i = 0; i < array.length / 2; i++) {
-        if (array[i] !== array[(array.length - 1) - i]) {
+    current = l;
+    while (current) {
+        if (current.value !== array.pop()) {
             return false;
         }
+        current = current.next;
     }
     return true;
 }
