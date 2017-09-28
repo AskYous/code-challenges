@@ -1,15 +1,38 @@
 function removeKFromList(l: ListNode<number>, k: number): ListNode<number> {
     let current = l;
-    let previous: ListNode<number>;
+    let previous: ListNode<number> = null;
 
-    while (current) {
-        if (current.value == k) {
+    // case of 0 nodes
+    if (l == null) { return null; }
+
+    // case of 1 node
+    if (current.value == k && current.next == null) { return null; }
+
+    // first nodes
+    while (current.value == k) {
+        if (current.next) {
             current.value = current.next.value;
             current.next = current.next.next;
+        } else {
+            return null;
         }
-        current = current.next;
     }
-    console.log(toArray(l));
+
+    // at this point, current.value !== k and current.next !== null
+    // middle nodes
+    while (current.next) {
+        if (current.value == k) {
+            previous.next = current.next;
+            current = previous.next;
+        } else {
+            previous = current;
+            current = current.next;
+        }
+    }
+
+    // the last node.
+    if (previous.next.value == k) { previous.next = null; }
+
     return l;
 }
 function toArray(l: ListNode<number>) {
@@ -32,7 +55,8 @@ function toLinkedList(array: any[]): ListNode<number> {
     }
     return l;
 }
-const testCase = toLinkedList([3, 1, 2, 3, 4, 5]);
-const k = 3;
+const testCase = toLinkedList(null);
+const k = -1000;
 console.log(toArray(testCase), k);
-removeKFromList(testCase, 3);
+const answer = removeKFromList(testCase, k);
+console.log(toArray(answer));

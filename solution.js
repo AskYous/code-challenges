@@ -1,14 +1,40 @@
 function removeKFromList(l, k) {
     var current = l;
-    var previous;
-    while (current) {
-        if (current.value == k) {
+    var previous = null;
+    // case of 0 nodes
+    if (l == null) {
+        return null;
+    }
+    // case of 1 node
+    if (current.value == k && current.next == null) {
+        return null;
+    }
+    // first nodes
+    while (current.value == k) {
+        if (current.next) {
             current.value = current.next.value;
             current.next = current.next.next;
         }
-        current = current.next;
+        else {
+            return null;
+        }
     }
-    console.log(toArray(l));
+    // at this point, current.value !== k and current.next !== null
+    // middle nodes
+    while (current.next) {
+        if (current.value == k) {
+            previous.next = current.next;
+            current = previous.next;
+        }
+        else {
+            previous = current;
+            current = current.next;
+        }
+    }
+    // the last node.
+    if (previous.next.value == k) {
+        previous.next = null;
+    }
     return l;
 }
 function toArray(l) {
@@ -30,8 +56,9 @@ function toLinkedList(array) {
     }
     return l;
 }
-var testCase = toLinkedList([3, 1, 2, 3, 4, 5]);
-var k = 3;
+var testCase = toLinkedList(null);
+var k = -1000;
 console.log(toArray(testCase), k);
-removeKFromList(testCase, 3);
+var answer = removeKFromList(testCase, k);
+console.log(toArray(answer));
 //# sourceMappingURL=solution.js.map
