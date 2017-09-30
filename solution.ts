@@ -57,6 +57,10 @@ function addTwoHugeNumbers(a: ListNode<number>, b: ListNode<number>): ListNode<n
             }
         } else {
             carry = 0;
+            sum = {
+                value: +tempSum,
+                next: sum
+            };
         }
 
         nextA = stackA.pop();

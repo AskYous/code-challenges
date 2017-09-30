@@ -58,6 +58,10 @@ function addTwoHugeNumbers(a, b) {
         }
         else {
             carry = 0;
+            sum = {
+                value: +tempSum,
+                next: sum
+            };
         }
         nextA = stackA.pop();
         nextB = stackB.pop();
