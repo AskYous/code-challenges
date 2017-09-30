@@ -1,4 +1,4 @@
-function addTwoHugeNumbers(a: ListNode<number>, b: ListNode<number>): ListNode<number> {
+function addTwoHugeNumbersOld(a: ListNode<number>, b: ListNode<number>): ListNode<number> {
     const DIGIT_LENGTH: number = 4;
     let aConverted = convertToHugeNum(a);
     let bConverted = convertToHugeNum(b);
@@ -70,32 +70,4 @@ function addTwoHugeNumbers(a: ListNode<number>, b: ListNode<number>): ListNode<n
         return toDigitStr(`0${number}`);
     }
     return answer;
-}
-
-const testA = toLinkedList([1]);
-const testB = toLinkedList([9998, 9999, 9999, 9999, 9999, 9999]);
-const testResult = addTwoHugeNumbers(testA, testB);
-console.log(toArray(testResult));
-
-function toArray(l: ListNode<number>) {
-    if (!l) { return []; }
-    const array = [];
-    let current = l;
-    while (current !== null) {
-        array.push(current.value);
-        current = current.next;
-    }
-    return array;
-}
-function toLinkedList(array: any[]): ListNode<number> {
-    if (array.length == 1) { return new ListNode<number>(array[0]) }
-    const l = new ListNode<number>(null);
-    let temp = l;
-
-    for (let i = 0; i < array.length - 1; i++) {
-        temp.value = array[i];
-        temp.next = { value: array[i + 1], next: null };
-        temp = temp.next;
-    }
-    return l.value == null ? null : l;
 }

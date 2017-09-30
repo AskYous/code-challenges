@@ -24,8 +24,8 @@ function toLinkedList(array: any[]): ListNode<number> {
     }
     return l;
 }
-const testCase = toLinkedList([1, 2, 3, 4, 5]);
-const k = 2;
-console.log(toArray(testCase), k);
-const answer = removeKFromList(testCase, k);
-console.log(toArray(answer));
+// const testCase = toLinkedList([1, 2, 3, 4, 5]);
+// const k = 2;
+// console.log(toArray(testCase), k);
+// const answer = removeKFromList(testCase, k);
+// console.log(toArray(answer));

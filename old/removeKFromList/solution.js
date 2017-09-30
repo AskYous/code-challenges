@@ -26,9 +26,9 @@ function toLinkedList(array) {
     }
     return l;
 }
-var testCase = toLinkedList([1, 2, 3, 4, 5]);
-var k = 2;
-console.log(toArray(testCase), k);
-var answer = removeKFromList(testCase, k);
-console.log(toArray(answer));
+// const testCase = toLinkedList([1, 2, 3, 4, 5]);
+// const k = 2;
+// console.log(toArray(testCase), k);
+// const answer = removeKFromList(testCase, k);
+// console.log(toArray(answer)); 
 //# sourceMappingURL=solution.js.map

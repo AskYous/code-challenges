@@ -14,6 +14,10 @@ function toArray(listNode) {
     return array;
 }
 exports.toArray = toArray;
+/**
+ * Converts an array to a linked list
+ * @param array the array to convert
+ */
 function toLinkedList(array) {
     if (array.length == 0) {
         return null;

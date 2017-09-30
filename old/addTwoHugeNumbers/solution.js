@@ -1,4 +1,4 @@
-function addTwoHugeNumbers(a, b) {
+function addTwoHugeNumbersOld(a, b) {
     var DIGIT_LENGTH = 4;
     var aConverted = convertToHugeNum(a);
     var bConverted = convertToHugeNum(b);
@@ -73,34 +73,5 @@ function addTwoHugeNumbers(a, b) {
         return toDigitStr("0" + number);
     }
     return answer;
-}
-var testA = toLinkedList([1]);
-var testB = toLinkedList([9998, 9999, 9999, 9999, 9999, 9999]);
-var testResult = addTwoHugeNumbers(testA, testB);
-console.log(toArray(testResult));
-function toArray(l) {
-    if (!l) {
-        return [];
-    }
-    var array = [];
-    var current = l;
-    while (current !== null) {
-        array.push(current.value);
-        current = current.next;
-    }
-    return array;
-}
-function toLinkedList(array) {
-    if (array.length == 1) {
-        return new ListNode(array[0]);
-    }
-    var l = new ListNode(null);
-    var temp = l;
-    for (var i = 0; i < array.length - 1; i++) {
-        temp.value = array[i];
-        temp.next = { value: array[i + 1], next: null };
-        temp = temp.next;
-    }
-    return l.value == null ? null : l;
 }
 //# sourceMappingURL=solution.js.map

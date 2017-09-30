@@ -12,6 +12,10 @@ export function toArray(listNode: ListNode<any>): any[] {
     return array;
 }
 
+/**
+ * Converts an array to a linked list
+ * @param array the array to convert
+ */
 export function toLinkedList(array: any[]): ListNode<any> {
     if (array.length == 0) { return null; }
     return {
