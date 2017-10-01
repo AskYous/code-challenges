@@ -3,5 +3,8 @@
     "compilerOptions": {
         "watch": true,
         "sourceMap": true,
-    }
+    },
+    "exclude": [
+        "old"
+    ]
 }

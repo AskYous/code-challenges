@@ -1,3 +1,4 @@
+import { ListNode } from './ListNode';
 /**
  * Converts a ListNode to an array.
  * @param listNode the linked list to convert

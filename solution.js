@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-var ListNode = require("./ListNode");
+var ListNode_1 = require("./ListNode");
 function addTwoHugeNumbers(a, b) {
     var DIGIT_LENGTH = 4;
     var stackA = [];
@@ -16,11 +16,17 @@ function addTwoHugeNumbers(a, b) {
             return;
         }
         if (aNextIsNull && !bNextIsNull) {
-            a = { value: 0, next: a };
+            var temp = new ListNode_1.ListNode(a.value);
+            temp.next = a.next;
+            a = new ListNode_1.ListNode(0);
+            a.next = temp;
             makeSameLength(a2, b2.next);
         }
         else if (!aNextIsNull && bNextIsNull) {
-            b = { value: 0, next: b };
+            var temp = new ListNode_1.ListNode(b.value);
+            temp.next = b.next;
+            b = new ListNode_1.ListNode(0);
+            b.next = temp;
             makeSameLength(a2.next, b2);
         }
         else {
@@ -47,31 +53,43 @@ function addTwoHugeNumbers(a, b) {
         if (tempSum.length > DIGIT_LENGTH) {
             carry = +tempSum.slice(0, 1);
             if (sum == null) {
-                sum = new ListNode(+tempSum.slice(1));
+                sum = new ListNode_1.ListNode(+tempSum.slice(1));
             }
             else {
-                sum = {
-                    value: +tempSum.slice(1),
-                    next: sum
-                };
+                var temp = new ListNode_1.ListNode(sum.value);
+                temp.next = sum.next;
+                sum = new ListNode_1.ListNode(+tempSum.slice(1));
+                sum.next = temp;
             }
         }
         else {
             carry = 0;
-            sum = {
-                value: +tempSum,
-                next: sum
-            };
+            if (sum == null) {
+                sum = new ListNode_1.ListNode(+tempSum);
+            }
+            else {
+                var temp = new ListNode_1.ListNode(sum.value);
+                temp.next = sum.next;
+                sum = new ListNode_1.ListNode(+tempSum);
+                sum.next = temp;
+            }
         }
         nextA = stackA.pop();
         nextB = stackB.pop();
     }
-    return carry > 0 ? { value: carry, next: sum } : sum;
+    if (carry > 0) {
+        var answer = new ListNode_1.ListNode(carry);
+        answer.next = sum;
+        return answer;
+    }
+    else {
+        return sum;
+    }
 }
 var LinkedListHelper = require("./LinkedListHelper");
 (function test() {
-    var a = [9876, 5432, 1999];
-    var b = [1, 8001];
+    var a = [123, 4, 5];
+    var b = [100, 100, 100];
     var testResult = addTwoHugeNumbers(LinkedListHelper.toLinkedList(a), LinkedListHelper.toLinkedList(b));
     console.log(LinkedListHelper.toArray(testResult));
 })();

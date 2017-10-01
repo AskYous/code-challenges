@@ -1,4 +1,4 @@
-export = class ListNode<T> {
+export class ListNode<T> {
     value: T;
     next: ListNode<T>;
 
