@@ -1,26 +1,43 @@
-function mergeTwoLinkedLists(a: ListNode<number>, b: ListNode<number>): ListNode<number> {
-    let sorted: ListNode<number>;
-    if (!a !== !b) { return a || b } // if a or b is null, return the not-null one.
-    if (!a && !b) { return null; }
+function reverseNodesInKGroups(l: ListNode<number>, k: number): ListNode<number> {
+    let stack: number[] = [];
+    let answer: ListNode<number> = null;
+    let answerIter: ListNode<number> = answer;
+    let current: ListNode<number> = l;
 
-    if (a.value > b.value) {
-        sorted = b;
-        sorted.next = mergeTwoLinkedLists(a, b.next)
-    } else {
-        sorted = a;
-        sorted.next = mergeTwoLinkedLists(a.next, b)
+    if (l == null) { return null; }
+    for (let i = 0; current; i++) {
+        stack.push(current.value);
+
+        // when reached end of a k group
+        if ((i + 1) % k == 0) {
+            if (!answer) {
+                answer = new ListNode<number>(stack.pop());
+                answerIter = answer;
+            }
+            while (stack.length) {
+                answerIter.next = new ListNode<number>(stack.pop());
+                answerIter = answerIter.next;
+            }
+        }
+        current = current.next;
     }
 
-    return sorted;
+    // consider liknedlist length < k
+    stack = stack.reverse();
+    while (stack.length) {
+        answerIter.next = new ListNode<number>(stack.pop());
+        answerIter = answerIter.next;
+    }
+    return answer;
 }
 
 import { ListNode } from './ListNode';
 import LinkedListHelper = require('./LinkedListHelper');
 (function test() {
-    const a = [1, 3];
-    const b = [2, 4];
+    const a = [1, 3, 4, 5, 6, 4, 7, 8];
+    const k = 3;
 
-    const testResult = mergeTwoLinkedLists(LinkedListHelper.toLinkedList(a), LinkedListHelper.toLinkedList(b));
+    const testResult = reverseNodesInKGroups(LinkedListHelper.toLinkedList(a), k);
     console.log(LinkedListHelper.toArray(testResult));
 })();
 

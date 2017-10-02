@@ -1,28 +1,42 @@
 "use strict";
 exports.__esModule = true;
-function mergeTwoLinkedLists(a, b) {
-    var sorted;
-    if (!a !== !b) {
-        return a || b;
-    } // if a or b is null, return the not-null one.
-    if (!a && !b) {
+function reverseNodesInKGroups(l, k) {
+    var stack = [];
+    var answer = null;
+    var answerIter = answer;
+    var current = l;
+    if (l == null) {
         return null;
     }
-    if (a.value > b.value) {
-        sorted = b;
-        sorted.next = mergeTwoLinkedLists(a, b.next);
+    for (var i = 0; current; i++) {
+        stack.push(current.value);
+        // when reached end of a k group
+        if ((i + 1) % k == 0) {
+            if (!answer) {
+                answer = new ListNode_1.ListNode(stack.pop());
+                answerIter = answer;
+            }
+            while (stack.length) {
+                answerIter.next = new ListNode_1.ListNode(stack.pop());
+                answerIter = answerIter.next;
+            }
+        }
+        current = current.next;
     }
-    else {
-        sorted = a;
-        sorted.next = mergeTwoLinkedLists(a.next, b);
+    // consider liknedlist length < k
+    stack = stack.reverse();
+    while (stack.length) {
+        answerIter.next = new ListNode_1.ListNode(stack.pop());
+        answerIter = answerIter.next;
     }
-    return sorted;
+    return answer;
 }
+var ListNode_1 = require("./ListNode");
 var LinkedListHelper = require("./LinkedListHelper");
 (function test() {
-    var a = [1, 3];
-    var b = [2, 4];
-    var testResult = mergeTwoLinkedLists(LinkedListHelper.toLinkedList(a), LinkedListHelper.toLinkedList(b));
+    var a = [1, 3, 4, 5, 6, 4, 7, 8];
+    var k = 3;
+    var testResult = reverseNodesInKGroups(LinkedListHelper.toLinkedList(a), k);
     console.log(LinkedListHelper.toArray(testResult));
 })();
 //# sourceMappingURL=solution.js.map
