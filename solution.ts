@@ -23,6 +23,15 @@ function reverseNodesInKGroups(l: ListNode<number>, k: number): ListNode<number>
     }
 
     // consider liknedlist length < k
+    // stack is gaurenteed to have items if list length < k
+    if (!answerIter) {
+        answer = new ListNode<number>(stack[0]);
+        for (let i = 1; i < stack.length; i++) {
+            answer.next = new ListNode<number>(stack[i]);
+            answerIter = answer.next;
+        }
+        return answer;
+    }
     stack = stack.reverse();
     while (stack.length) {
         answerIter.next = new ListNode<number>(stack.pop());
@@ -34,7 +43,7 @@ function reverseNodesInKGroups(l: ListNode<number>, k: number): ListNode<number>
 import { ListNode } from './ListNode';
 import LinkedListHelper = require('./LinkedListHelper');
 (function test() {
-    const a = [1, 3, 4, 5, 6, 4, 7, 8];
+    const a = [1, 3];
     const k = 3;
 
     const testResult = reverseNodesInKGroups(LinkedListHelper.toLinkedList(a), k);
