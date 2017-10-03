@@ -1,52 +1,21 @@
-function reverseNodesInKGroups(l: ListNode<number>, k: number): ListNode<number> {
-    let stack: number[] = [];
-    let answer: ListNode<number> = null;
-    let answerIter: ListNode<number> = answer;
-    let current: ListNode<number> = l;
-
-    if (l == null) { return null; }
-    for (let i = 0; current; i++) {
-        stack.push(current.value);
-
-        // when reached end of a k group
-        if ((i + 1) % k == 0) {
-            if (!answer) {
-                answer = new ListNode<number>(stack.pop());
-                answerIter = answer;
-            }
-            while (stack.length) {
-                answerIter.next = new ListNode<number>(stack.pop());
-                answerIter = answerIter.next;
-            }
-        }
-        current = current.next;
+function checkPalindrome(inputString: string): boolean {
+    const arrayFrom = inputString.split('');
+    const stack: string[] = [];
+    // remove middle if odd number
+    if (inputString.length % 2 !== 0) {
+        arrayFrom.splice(Math.floor(inputString.length / 2), 1).join('');
+        console.log(arrayFrom);
     }
 
-    // consider liknedlist length < k
-    // stack is gaurenteed to have items if list length < k
-    if (!answerIter) {
-        answer = new ListNode<number>(stack[0]);
-        for (let i = 1; i < stack.length; i++) {
-            answer.next = new ListNode<number>(stack[i]);
-            answerIter = answer.next;
-        }
-        return answer;
+    // populate stack with first half
+    for (let i = 0; i < (arrayFrom.length / 2); i++) {
+        stack.push(arrayFrom[i]);
     }
-    stack = stack.reverse();
-    while (stack.length) {
-        answerIter.next = new ListNode<number>(stack.pop());
-        answerIter = answerIter.next;
+
+    for (let i = (arrayFrom.length / 2); i < arrayFrom.length; i++) {
+        if (arrayFrom[i] !== stack.pop()) { return false; }
     }
-    return answer;
+
+    return true;
 }
-
-import { ListNode } from './ListNode';
-import LinkedListHelper = require('./LinkedListHelper');
-(function test() {
-    const a = [1, 3];
-    const k = 3;
-
-    const testResult = reverseNodesInKGroups(LinkedListHelper.toLinkedList(a), k);
-    console.log(LinkedListHelper.toArray(testResult));
-})();
-
+console.log(checkPalindrome('hlbeeykoqqqqokyeeblh'));
