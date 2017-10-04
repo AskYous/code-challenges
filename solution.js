@@ -1,21 +1,9 @@
-function checkPalindrome(inputString) {
-    var arrayFrom = inputString.split('');
-    var stack = [];
-    // remove middle if odd number
-    if (inputString.length % 2 !== 0) {
-        arrayFrom.splice(Math.floor(inputString.length / 2), 1).join('');
-        console.log(arrayFrom);
+function adjacentElementsProduct(inputArray) {
+    var products = [inputArray[0] * inputArray[1]];
+    for (var i = 1; i < inputArray.length - 1; i++) {
+        products.push(inputArray[i] * inputArray[i + 1]);
     }
-    // populate stack with first half
-    for (var i = 0; i < (arrayFrom.length / 2); i++) {
-        stack.push(arrayFrom[i]);
-    }
-    for (var i = (arrayFrom.length / 2); i < arrayFrom.length; i++) {
-        if (arrayFrom[i] !== stack.pop()) {
-            return false;
-        }
-    }
-    return true;
+    return Math.max.apply(Math, products);
 }
-console.log(checkPalindrome('hlbeeykoqqqqokyeeblh'));
+console.log(adjacentElementsProduct([1, 2, 3, 4, 5]) == 20);
 //# sourceMappingURL=solution.js.map
