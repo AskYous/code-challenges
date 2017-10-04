@@ -1,9 +1,5 @@
-function adjacentElementsProduct(inputArray) {
-    var products = [inputArray[0] * inputArray[1]];
-    for (var i = 1; i < inputArray.length - 1; i++) {
-        products.push(inputArray[i] * inputArray[i + 1]);
-    }
-    return Math.max.apply(Math, products);
+function shapeArea(n) {
+    return (n * n) + ((n - 1) * (n - 1));
 }
-console.log(adjacentElementsProduct([1, 2, 3, 4, 5]) == 20);
+console.log(shapeArea(3));
 //# sourceMappingURL=solution.js.map
