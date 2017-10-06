@@ -16,17 +16,17 @@ function printPascalsTriangle(n: number) {
     }
 
     // building the rows
-    for (var row = 1; row < n; row++) {
+    for (var ir = 1; ir < n; ir++) {
 
         // create first column
-        values[row] = []; // create the array
-        values[row][0] = 1;
+        values[ir] = []; // create the array
+        values[ir][0] = 1;
 
-        for (var col = 1; col < row + 1; col++) {
-            const leftParent: number = values[row - 1][col - 1];
-            const rightParent: number = values[row - 1][col];
+        for (var ic = 1; ic < ir + 1; ic++) {
+            const leftParent: number = values[ir - 1][ic - 1];
+            const rightParent: number = values[ir - 1][ic];
             const currentValue = (leftParent || 0) + (rightParent || 0);
-            values[row][col] = currentValue;
+            values[ir][ic] = currentValue;
         }
     }
 
