@@ -2,9 +2,12 @@
     "compileOnSave": true,
     "compilerOptions": {
         "watch": true,
-        "sourceMap": true,
+        "sourceMap": true
     },
     "exclude": [
         "old"
+    ],
+    "include": [
+        "./solution.ts"
     ]
 }
