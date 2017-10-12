@@ -1,13 +1,19 @@
-function containsCloseNums(nums: number[], k: number): boolean {
-    for (var i = 0; i < nums.length; i++) {
-        for (var j = 0; j < nums.length; j++) {
-            if (i !== j && nums[i] == nums[j] && Math.abs(i - j) <= k) {
-                return true;
-            }
-        }
-    }
-    return false;
+function possibleSums(coins: number[], quantity: number[]): number {
+    const coinsSpreadOut = getCoinsSpreadOut(coins, quantity);
 }
-const nums = [0, 1, 2, 3, 5, 2];
-const k = 5;
-console.log(containsCloseNums(nums, k));
+
+function getCoinsSpreadOut(coins: number[], quantity: number[]): number[] {
+    const coinsSpreadOut: number[] = []; // [ '10', '50', '50', '100' ]
+    coins.forEach((c, i) => {
+        const q = quantity[i];
+        for (let i = 0; i < q; i++) {
+            coinsSpreadOut.push(c);
+        }
+    });
+    console.log(coinsSpreadOut);
+    return coinsSpreadOut;
+};
+
+const coins = [10, 50, 100];
+const quantity = [1, 2, 1];
+console.log(possibleSums(coins, quantity));
