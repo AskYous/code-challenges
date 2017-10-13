@@ -1,5 +1,10 @@
 function possibleSums(coins, quantity) {
     var coinsSpreadOut = getCoinsSpreadOut(coins, quantity);
+    var sum = 0;
+    for (var i = 0; i < coins.length; i++) {
+        grid.push(coinsSpreadOut);
+    }
+    return sum;
 }
 function getCoinsSpreadOut(coins, quantity) {
     var coinsSpreadOut = []; // [ '10', '50', '50', '100' ]
@@ -12,7 +17,6 @@ function getCoinsSpreadOut(coins, quantity) {
     console.log(coinsSpreadOut);
     return coinsSpreadOut;
 }
-;
 var coins = [10, 50, 100];
 var quantity = [1, 2, 1];
 console.log(possibleSums(coins, quantity));

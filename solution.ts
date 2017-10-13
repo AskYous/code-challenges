@@ -1,7 +1,13 @@
 function possibleSums(coins: number[], quantity: number[]): number {
     const coinsSpreadOut = getCoinsSpreadOut(coins, quantity);
-}
+    let sum:number=0;
 
+    for (let i = 0; i < coins.length; i++) {
+        grid.push(coinsSpreadOut);
+    }
+    return sum;
+
+}
 function getCoinsSpreadOut(coins: number[], quantity: number[]): number[] {
     const coinsSpreadOut: number[] = []; // [ '10', '50', '50', '100' ]
     coins.forEach((c, i) => {
@@ -12,7 +18,7 @@ function getCoinsSpreadOut(coins: number[], quantity: number[]): number[] {
     });
     console.log(coinsSpreadOut);
     return coinsSpreadOut;
-};
+}
 
 const coins = [10, 50, 100];
 const quantity = [1, 2, 1];
