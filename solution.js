@@ -1,21 +1,37 @@
 function possibleSums(coins, quantity) {
-    var coinsSpreadOut = getCoinsSpreadOut(coins, quantity);
-    var sum = 0;
-    for (var i = 0; i < coins.length; i++) {
-        grid.push(coinsSpreadOut);
-    }
-    return sum;
-}
-function getCoinsSpreadOut(coins, quantity) {
-    var coinsSpreadOut = []; // [ '10', '50', '50', '100' ]
-    coins.forEach(function (c, i) {
-        var q = quantity[i];
-        for (var i_1 = 0; i_1 < q; i_1++) {
-            coinsSpreadOut.push(c);
+    var sums = {};
+    var distributedCoins = [];
+    var binary = '';
+    var nextBinary = '';
+    var maxBinary = '';
+    // create distributed coins and
+    coins.forEach(function (coin, i) {
+        for (var i2 = 0; i2 < quantity[i]; i2++) {
+            distributedCoins.push(coin);
         }
     });
-    console.log(coinsSpreadOut);
-    return coinsSpreadOut;
+    // create binary
+    distributedCoins.forEach(function () {
+        binary += '0';
+        maxBinary += '1';
+    });
+    nextBinary = binary;
+    // create max binary
+    for (var i = 0; nextBinary != maxBinary; i++) {
+        nextBinary = incrementAndPadBinary(nextBinary);
+        var currentSum = 0;
+        for (var j = 0; j < nextBinary.length; j++) {
+            if (nextBinary.charAt(nextBinary.length - j - 1) == '1') {
+                currentSum += distributedCoins[distributedCoins.length - j - 1];
+            }
+        }
+        sums[currentSum] = true;
+    }
+    return Object.keys(sums).length;
+}
+function incrementAndPadBinary(binary) {
+    var incremented = (parseInt(binary, 2) + 1).toString(2);
+    return incremented;
 }
 var coins = [10, 50, 100];
 var quantity = [1, 2, 1];
