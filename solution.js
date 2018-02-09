@@ -7,9 +7,20 @@
  * @param {number[][]} pairs The pairs you're allowed to swap
  */
 function swapLexOrder(str, pairs) {
+    /** @type{Set<string>} */
+    const possibilities = new Set([str]);
     for (let pair of pairs) {
-
+        possibilities.add(swap(str, pair[0], pair[1]));
+        for (let pair of pairs) {
+            for (let p of Array.from(possibilities)) {
+                possibilities.add(swap(p, pair[0], pair[1]));
+            }
+        }
     }
+
+    const answer = Array.from(possibilities).sort()[possibilities.size - 1];
+    debugger;
+    return answer;
 }
 
 /**
