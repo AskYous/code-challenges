@@ -10,16 +10,19 @@ function swapLexOrder(str, pairs) {
     /** @type{Set<string>} */
     const possibilities = new Set([str]);
     for (let pair of pairs) {
-        possibilities.add(swap(str, pair[0], pair[1]));
-        for (let pair of pairs) {
+        let first = Math.min(pair[0], pair[1]);
+        let last = Math.max(pair[0], pair[1]);
+        possibilities.add(swap(str, first, last));
+        for (let pair2 of pairs) {
             for (let p of Array.from(possibilities)) {
-                possibilities.add(swap(p, pair[0], pair[1]));
+                let first = Math.min(pair2[0], pair2[1]);
+                let last = Math.max(pair2[0], pair2[1]);
+                possibilities.add(swap(p, first, last));
             }
         }
     }
 
     const answer = Array.from(possibilities).sort()[possibilities.size - 1];
-    debugger;
     return answer;
 }
 

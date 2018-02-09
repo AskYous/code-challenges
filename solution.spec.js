@@ -31,4 +31,13 @@ const solution = require("./solution");
         [3, 4]
     ]);
     console.assert(expected == actual);
+
+    expected = "zdsnxamwoj";
+    actual = solution.swapLexOrder("dznsxamwoj", [
+        [1, 2],
+        [3, 4],
+        [6, 5],
+        [8, 10]
+    ]);
+    console.assert(expected == actual);
 })();
