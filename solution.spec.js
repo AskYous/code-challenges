@@ -40,4 +40,19 @@ const solution = require("./solution");
         [8, 10]
     ]);
     console.assert(expected == actual);
+
+    expected = "fzxmybhtuigowbyefkvhyameoamqei";
+    actual = solution.swapLexOrder("fixmfbhyutghwbyezkveyameoamqoi", [
+        [8, 5],
+        [10, 8],
+        [4, 18],
+        [20, 12],
+        [5, 2],
+        [17, 2],
+        [13, 25],
+        [29, 12],
+        [22, 2],
+        [17, 11]
+    ]);
+    console.assert(expected == actual);
 })();

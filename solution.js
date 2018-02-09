@@ -13,8 +13,9 @@ function swapLexOrder(str, pairs) {
         let first = Math.min(pair[0], pair[1]);
         let last = Math.max(pair[0], pair[1]);
         possibilities.add(swap(str, first, last));
+        const copy = Array.from(possibilities);
         for (let pair2 of pairs) {
-            for (let p of Array.from(possibilities)) {
+            for (let p of copy) {
                 let first = Math.min(pair2[0], pair2[1]);
                 let last = Math.max(pair2[0], pair2[1]);
                 possibilities.add(swap(p, first, last));
