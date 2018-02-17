@@ -5,19 +5,19 @@ const solution = require("./solution");
  */
 (() => {
     let expected = "koob";
-    let actual = solution.swap("book", 1, 4);
+    let actual = solution.swapAt("book", 1, 4);
     console.assert(expected == actual);
 
     expected = "klil";
-    actual = solution.swap("kill", 2, 3);
+    actual = solution.swapAt("kill", 2, 3);
     console.assert(expected == actual);
 
     expected = "book";
-    actual = solution.swap("book", 2, 3);
+    actual = solution.swapAt("book", 2, 3);
     console.assert(expected == actual);
 
     expected = "boko";
-    actual = solution.swap("book", 3, 4);
+    actual = solution.swapAt("book", 3, 4);
     console.assert(expected == actual);
 })();
 
@@ -53,6 +53,29 @@ const solution = require("./solution");
         [29, 12],
         [22, 2],
         [17, 11]
+    ]);
+    console.assert(expected == actual);
+
+    expected = "lyyvurrhgxyzvonohunlfejihesiebjwbyatfkrv";
+    actual = solution.swapLexOrder("lvvyfrbhgiyexoirhunnuejzhesylojwbyatfkrv", [
+        [13, 23],
+        [13, 28],
+        [15, 20],
+        [24, 29],
+        [6, 7],
+        [3, 4],
+        [21, 30],
+        [2, 13],
+        [12, 15],
+        [19, 23],
+        [10, 19],
+        [13, 14],
+        [6, 16],
+        [17, 25],
+        [6, 21],
+        [17, 26],
+        [5, 6],
+        [12, 24]
     ]);
     console.assert(expected == actual);
 })();

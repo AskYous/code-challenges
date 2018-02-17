@@ -1,6 +1,6 @@
 /**
  * Given a string str and array of pairs that indicates which indices in the 
- * string can be swapped, return the * lexicographically largest string that 
+ * string can be swapped, return the lexicographically largest string that 
  * results from doing the allowed swaps. You can swap indices any number of 
  * times.
  * @param {string} str The string
@@ -8,24 +8,34 @@
  */
 function swapLexOrder(str, pairs) {
     /** @type{Set<string>} */
-    const possibilities = new Set([str]);
+    const swaps = new Set([str]);
+    /** @type{Set<string>} */
+    const tempSwaps = new Set([str]);
+
     for (let pair of pairs) {
-        let first = Math.min(pair[0], pair[1]);
-        let last = Math.max(pair[0], pair[1]);
-        possibilities.add(swap(str, first, last));
-        const copy = Array.from(possibilities);
-        for (let pair2 of pairs) {
-            for (let p of copy) {
-                let first = Math.min(pair2[0], pair2[1]);
-                let last = Math.max(pair2[0], pair2[1]);
-                possibilities.add(swap(p, first, last));
-            }
+        for (let swap of swaps) {
+            let first = Math.min(pair[0], pair[1]);
+            let last = Math.max(pair[0], pair[1]);
+            let swapped = swapAt(swap, first, last);
+            swaps.add(swapped);
+        }
+    }
+    for (let pair of pairs) {
+        for (let swap of swaps) {
+            first = Math.min(pair[0], pair[1]);
+            last = Math.max(pair[0], pair[1]);
+            swapped = swapAt(swap, first, last);
+            swaps.add(swapped);
         }
     }
 
-    const answer = Array.from(possibilities).sort()[possibilities.size - 1];
-    return answer;
+    const answer = Array.from(swaps).sort()[swaps.size - 1];
+    return answer; // need dbca
 }
+
+// abdc & [[1,4], [3,4]]
+// cbda [1,4]
+// acdb, 
 
 /**
  * Swaps a string's any two characters
@@ -33,7 +43,7 @@ function swapLexOrder(str, pairs) {
  * @param {number} i1 the first character to swap
  * @param {number} i2 the second character to swap
  */
-function swap(string, i1, i2) {
+function swapAt(string, i1, i2) {
     return string.substring(0, i1 - 1) +
         string.charAt(i2 - 1) +
         string.substring(i1, i2 - 1) +
@@ -42,6 +52,6 @@ function swap(string, i1, i2) {
 }
 
 module.exports = {
-    swap,
+    swapAt,
     swapLexOrder
 };
