@@ -7,11 +7,14 @@
  * @param {number[][]} pairs The pairs you're allowed to swap
  */
 function swapLexOrder(str, pairs) {
+    if (str.length == 0 || pairs.length == 0) {
+        return str;
+    }
     const swaps = new Set();
     const paths = getConnectedPaths(pairs);
 
     for (let path of paths) {
-        path = path.sort();
+        path = path.sort((a, b) => a - b);
         let chars = [];
         for (let v of path) {
             v--; // so annoying
@@ -24,6 +27,10 @@ function swapLexOrder(str, pairs) {
     }
     return str;
 }
+
+// given =      dznsxamwoj
+// expected =   zdsnxamwoj
+// actual =     zdsnxamjow
 
 /**
  * Merges the pairs to group them by examing their possible paths.

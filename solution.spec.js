@@ -58,4 +58,8 @@ const solution = require("./solution");
         [12, 24]
     ]);
     console.assert(expected == actual);
+
+    expected = "z";
+    actual = solution.swapLexOrder("z", []);
+    console.assert(expected == actual);
 })();
