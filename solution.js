@@ -70,6 +70,8 @@ function getConnectedPaths(pairs) {
  */
 function swapAt(string, i1, i2) {
     if (i1 == i2) return string;
+    i1 = Math.min(i1, i2);
+    i2 = Math.max(i1, i2);
     const swap = string.substring(0, i1 - 1) +
         string.charAt(i2 - 1) +
         string.substring(i1, i2 - 1) +

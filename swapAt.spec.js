@@ -17,3 +17,7 @@ console.assert(expected == actual);
 expected = "boko";
 actual = swapAt("book", 3, 4);
 console.assert(expected == actual);
+
+expected = "cbda";
+actual = swapAt("abdc", 4, 1);
+console.assert(expected == actual);
