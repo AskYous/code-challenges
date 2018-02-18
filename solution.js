@@ -34,31 +34,28 @@ function getConnectedPaths(pairs) {
     /** @type {number[][]} */
     let paths = [];
 
-    for (let pair of pairs) {
-        /** @type {Set<number>} */
-        let path = new Set();
-        for (let v of pair) {
-            if (path.has(v)) {
-                continue;
-            }
-            let adjacents = pairs.filter(p => p.find(x => x == v) !== undefined);
-            let temp = adjacents.reduce((a, c) => {
-                a.concat(c);
-                return a;
-            });
-            temp.forEach(v => path.add(v));
-            for (let p of path) {
-                adjacents = pairs.filter(p2 => p2.find(x => x == p) !== undefined);
-                temp = adjacents.reduce((a, c) => {
-                    a.concat(c);
-                    return a;
-                });
-                temp.forEach(v => path.add(v));
-            }
-            let added = false;
-            paths.push(Array.from(path));
+    /** @type {Set<number>} */
+    let vertices = new Set(pairs.reduce((a, c) => {
+        a = a.concat(c);
+        return a
+    }));
+
+    for (let v of vertices) {
+        if (paths.find(p => p.find(v2 => v2 == v)) !== undefined) {
+            continue;
         }
+        let path = [v];
+        for (let v of path) {
+            for (let pair of pairs) {
+                if (path.includes(pair[0]) && path.includes(pair[1])) continue;
+                if (pair.includes(v)) {
+                    path.push(pair.find(x => x !== v));
+                }
+            }
+        }
+        paths.push(path);
     }
+
     return paths;
 }
 
@@ -70,13 +67,13 @@ function getConnectedPaths(pairs) {
  */
 function swapAt(string, i1, i2) {
     if (i1 == i2) return string;
-    i1 = Math.min(i1, i2);
-    i2 = Math.max(i1, i2);
-    const swap = string.substring(0, i1 - 1) +
-        string.charAt(i2 - 1) +
-        string.substring(i1, i2 - 1) +
-        string.charAt(i1 - 1) +
-        string.substring(i2, string.length);
+    const j1 = Math.min(i1, i2);
+    const j2 = Math.max(i1, i2);
+    const swap = string.substring(0, j1 - 1) +
+        string.charAt(j2 - 1) +
+        string.substring(j1, j2 - 1) +
+        string.charAt(j1 - 1) +
+        string.substring(j2, string.length);
     return swap;
 }
 
