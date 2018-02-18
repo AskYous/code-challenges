@@ -28,10 +28,6 @@ function swapLexOrder(str, pairs) {
     return str;
 }
 
-// given =      dznsxamwoj
-// expected =   zdsnxamwoj
-// actual =     zdsnxamjow
-
 /**
  * Merges the pairs to group them by examing their possible paths.
  * @param {number[][]} pairs The pairs
@@ -48,7 +44,7 @@ function getConnectedPaths(pairs) {
     }));
 
     for (let v of vertices) {
-        if (paths.find(p => p.find(v2 => v2 == v)) !== undefined) {
+        if (paths.find(p => p.find(v2 => v2 == v))) {
             continue;
         }
         let path = [v];
