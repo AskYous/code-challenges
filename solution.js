@@ -7,7 +7,19 @@
  * @param {number[][]} pairs The pairs you're allowed to swap
  */
 function swapLexOrder(str, pairs) {
-    const paths = getPaths(pairs);
+    const swaps = new Set();
+    const paths = getConnectedPaths(pairs);
+    for (let path of paths) {
+        for (path2 of paths) {
+            for (let v1 of path) {
+                for (let v2 of path2) {
+                    const swap = swapAt(str, v1, v2);
+                    swaps.add(swap);
+                }
+            }
+        }
+    }
+    return Array.from(swaps).sort().reverse()[0];
 }
 
 // (2,7)(0,2)(5,7)(1,6)
@@ -57,11 +69,13 @@ function getConnectedPaths(pairs) {
  * @param {number} i2 the second character to swap
  */
 function swapAt(string, i1, i2) {
-    return string.substring(0, i1 - 1) +
+    if (i1 == i2) return string;
+    const swap = string.substring(0, i1 - 1) +
         string.charAt(i2 - 1) +
         string.substring(i1, i2 - 1) +
         string.charAt(i1 - 1) +
         string.substring(i2, string.length);
+    return swap;
 }
 
 module.exports = {
