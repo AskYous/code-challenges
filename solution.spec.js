@@ -1,25 +1,5 @@
 const solution = require("./solution");
 
-/**
- * Test swap function.
- */
-(() => {
-    let expected = "koob";
-    let actual = solution.swapAt("book", 1, 4);
-    console.assert(expected == actual);
-
-    expected = "klil";
-    actual = solution.swapAt("kill", 2, 3);
-    console.assert(expected == actual);
-
-    expected = "book";
-    actual = solution.swapAt("book", 2, 3);
-    console.assert(expected == actual);
-
-    expected = "boko";
-    actual = solution.swapAt("book", 3, 4);
-    console.assert(expected == actual);
-})();
 
 /**
  * Testing swapLexOrder function
