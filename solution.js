@@ -9,21 +9,21 @@
 function swapLexOrder(str, pairs) {
     const swaps = new Set();
     const paths = getConnectedPaths(pairs);
+
     for (let path of paths) {
-        for (path2 of paths) {
-            for (let v1 of path) {
-                for (let v2 of path2) {
-                    const swap = swapAt(str, v1, v2);
-                    swaps.add(swap);
-                }
-            }
+        path = path.sort();
+        let chars = [];
+        for (let v of path) {
+            v--; // so annoying
+            chars.push(str.charAt(v));
+        }
+        chars = chars.sort().reverse();
+        for (let i = 0; i < chars.length; i++) {
+            str = str.substr(0, path[i] - 1) + chars[i] + str.substr(path[i]);
         }
     }
-    return Array.from(swaps).sort().reverse()[0];
+    return str;
 }
-
-// (2,7)(0,2)(5,7)(1,6)
-// (0,2,5,7) and (1,6)
 
 /**
  * Merges the pairs to group them by examing their possible paths.
@@ -58,27 +58,7 @@ function getConnectedPaths(pairs) {
 
     return paths;
 }
-
-/**
- * Swaps a string's any two characters
- * @param {string} string The string to swap its indexes
- * @param {number} i1 the first character to swap
- * @param {number} i2 the second character to swap
- */
-function swapAt(string, i1, i2) {
-    if (i1 == i2) return string;
-    const j1 = Math.min(i1, i2);
-    const j2 = Math.max(i1, i2);
-    const swap = string.substring(0, j1 - 1) +
-        string.charAt(j2 - 1) +
-        string.substring(j1, j2 - 1) +
-        string.charAt(j1 - 1) +
-        string.substring(j2, string.length);
-    return swap;
-}
-
 module.exports = {
-    swapAt,
     swapLexOrder,
     getConnectedPaths
 };
