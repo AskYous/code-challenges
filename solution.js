@@ -47,16 +47,19 @@ function getConnectedPaths(pairs) {
         if (paths.find(p => p.find(v2 => v2 == v))) {
             continue;
         }
-        let path = [v];
+        let path = new Set([v]);
         for (let v of path) {
-            for (let pair of pairs) {
-                if (path.includes(pair[0]) && path.includes(pair[1])) continue;
+            for (let i = 0; i < pairs.length; i++) {
+                let pair = pairs[i];
                 if (pair.includes(v)) {
-                    path.push(pair.find(x => x !== v));
+                    path.add(pair[0]);
+                    path.add(pair[1]);
+                    pairs.splice(i, 1); // remove that pair.
+                    i--; // fix i since we removed an element.
                 }
             }
         }
-        paths.push(path);
+        paths.push([...path]);
     }
 
     return paths;
