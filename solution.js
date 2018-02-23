@@ -1,70 +1,29 @@
-/**
- * Given a string str and array of pairs that indicates which indices in the 
- * string can be swapped, return the lexicographically largest string that 
- * results from doing the allowed swaps. You can swap indices any number of 
- * times.
- * @param {string} str The string
- * @param {number[][]} pairs The pairs you're allowed to swap
- */
-function swapLexOrder(str, pairs) {
-    if (str.length == 0 || pairs.length == 0) {
-        return str;
-    }
-    const swaps = new Set();
-    const paths = getConnectedPaths(pairs);
-
-    for (let path of paths) {
-        path = path.sort((a, b) => a - b);
-        let chars = [];
-        for (let v of path) {
-            v--; // so annoying
-            chars.push(str.charAt(v));
-        }
-        chars = chars.sort().reverse();
-        for (let i = 0; i < chars.length; i++) {
-            str = str.substr(0, path[i] - 1) + chars[i] + str.substr(path[i]);
-        }
-    }
-    return str;
+function findProfession(level, pos) {
+    const tree = new Tree(true, 1, level);
+    const absPos = Math.pow(2, level - 1) + (pos - 2);
+    const answer = findNthChildAtLevel(tree, absPos);
+    return answer ? "Engineer" : "Doctor";
 }
 
-/**
- * Merges the pairs to group them by examing their possible paths.
- * @param {number[][]} pairs The pairs
- * @return {number[][]}
- */
-function getConnectedPaths(pairs) {
-    /** @type {number[][]} */
-    let paths = [];
-
-    /** @type {Set<number>} */
-    let vertices = new Set(pairs.reduce((a, c) => {
-        a = a.concat(c);
-        return a
-    }));
-
-    for (let v of vertices) {
-        if (paths.find(p => p.find(v2 => v2 == v))) {
-            continue;
-        }
-        let path = new Set([v]);
-        for (let v of path) {
-            for (let i = 0; i < pairs.length; i++) {
-                let pair = pairs[i];
-                if (pair.includes(v)) {
-                    path.add(pair[0]);
-                    path.add(pair[1]);
-                    pairs.splice(i, 1); // remove that pair.
-                    i--; // fix i since we removed an element.
-                }
-            }
-        }
-        paths.push([...path]);
+function findNthChildAtLevel(tree, n, i = 0) {
+    if (tree == null) return;
+    if (i == n) {
+        return tree.value;
     }
+    const left = findNthChildAtLevel(tree.leftChild, n, (2 * i) + 1);
 
-    return paths;
+    if (left == null) return findNthChildAtLevel(tree.rightChild, n, (2 * i) + 2);
+    else return left;
 }
-module.exports = {
-    swapLexOrder,
-    getConnectedPaths
-};
+
+class Tree {
+    constructor(rootValue, row = 1, max) {
+        this.value = rootValue;
+        if (row < max) {
+            this.leftChild = new Tree(rootValue, row + 1, max);
+            this.rightChild = new Tree(!rootValue, row + 1, max);
+        }
+    }
+}
+
+module.exports = findProfession;
