@@ -1,32 +1,14 @@
 {
-    // Use IntelliSense to learn about possible Node.js debug attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Test getConnectedPaths",
-            "program": "${workspaceFolder}/getConnectedPaths.spec.js"
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Test convertAdjMatrixToPathList",
-            "program": "${workspaceFolder}/convertAdjMatrixToPathList.spec.js"
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Test swapAt",
-            "program": "${workspaceFolder}/swapAt.spec.js"
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Test Solution",
-            "program": "${workspaceRoot}/solution.spec.js"
-        }
-    ]
+  // Use IntelliSense to learn about possible Node.js debug attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Test Solution",
+      "program": "${workspaceRoot}/solution.js"
+    }
+  ]
 }
