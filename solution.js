@@ -1,26 +1,33 @@
 /**
- * @param {number[]} inorder
- * @param {number[]} preorder
+ * @param {string[]} words
+ * @param {string} parts
  */
-function restoreBinaryTree(inorder, preorder) {
-  if (!inorder.length) return null;
-  if (inorder.length == 1) return new Tree(inorder[0]);
-  const root = new Tree(preorder[0]);
-  const i = inorder.indexOf(root.value); // divider;
-  const li = inorder.slice(0, i);
-  const ri = inorder.slice(i + 1);
-  const lp = preorder.filter(x => li.includes(x));
-  const rp = preorder.filter(x => ri.includes(x));
-  root.left = restoreBinaryTree(li, lp);
-  root.right = restoreBinaryTree(ri, rp);
-  return root;
+function findSubstrings(words, parts) {
+  for (let i = 0; i < words.length; i++) {
+    const w = words[i];
+    let r = {};
+    let h = 0;
+
+    for (let p of parts) {
+      if (w.includes(p)) {
+        r[p] = p.length;
+        if (h < p.length) h = p.length;
+      } else r[p] = 0;
+    }
+
+    let t = parts
+      .filter(p => r[p] == h)
+      .map(p => {
+        return { p, i: w.indexOf(p) };
+      })
+      .sort((x, y) => x.i - y.i)[0];
+    if (t) words[i] = w.replace(t.p, `[${t.p}]`);
+  }
+  return words;
 }
 
-// Definition for binary tree:
-function Tree(x) {
-  this.value = x;
-  this.left = null;
-  this.right = null;
-}
-const answer = restoreBinaryTree([4, 2, 1, 5, 3, 6], [1, 2, 4, 3, 5, 6]);
-console.log(answer);
+let a = findSubstrings(
+  ['Aaaaaaaaa', 'bcdEFGh', 'Apple', 'Melon', 'Orange', 'Watermelon'],
+  []
+);
+console.log(a);
